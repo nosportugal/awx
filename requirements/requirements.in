@@ -10,11 +10,11 @@ boto3
 botocore
 channels
 channels-redis
-cryptography<42.0.0  # investigation is needed for 42+ to work with OpenSSL v3.0.x (RHEL 9.4) and v3.2.x (RHEL 9.5)
+cryptography<45.0.0  # investigation is needed for 42+ to work with OpenSSL v3.0.x (RHEL 9.4) and v3.2.x (RHEL 9.5)
 Cython
 daphne
 distro
-django==4.2.16  # CVE-2024-24680
+django==4.2.18  # CVE-2024-24680
 django-cors-headers
 django-crum
 django-extensions
@@ -63,7 +63,7 @@ twisted[tls]>=23.10.0  # CVE-2023-46137
 uWSGI
 uwsgitop
 wheel>=0.38.1  # CVE-2022-40898
-pip==21.2.4  # see UPGRADE BLOCKERs
+pip==23.3  # see UPGRADE BLOCKERs
 setuptools<71.0.0  # see UPGRADE BLOCKERs, path hack in v71 breaks irc deps
 setuptools_scm[toml]  # see UPGRADE BLOCKERs, xmlsec build dep
 setuptools-rust>=0.11.4  # cryptography build dep
