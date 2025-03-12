@@ -29,7 +29,6 @@ jobs:
 
     steps:
 
-
       - name: Skipping build of awx image for non-awx repository
         run: |
           echo "Skipping build of awx image for non-awx repository"
@@ -46,9 +45,8 @@ jobs:
 
       - name: Set GITHUB_ENV variables
         run: |
-          # echo "DEV_DOCKER_TAG_BASE=local/${OWNER,,}" >> $GITHUB_ENV
-          echo "COMPOSE_TAG=${GITHUB_REF##*/}" >> $GITHUB_ENV
-          echo "py_version=3.11" >> $GITHUB_ENV
+          echo py_version=`make PYTHON_VERSION` >> $GITHUB_ENV
+
         env:
           OWNER: '${{ github.repository_owner }}'
 
