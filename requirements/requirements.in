@@ -13,7 +13,7 @@ cryptography>=41.0.7  # CVE-2023-49083
 Cython<3 # this is needed as a build dependency, one day we may have separated build deps
 daphne
 distro
-django==4.2.6  # CVE-2023-43665
+django==4.2.16  # CVE-2023-43665
 django-auth-ldap
 django-cors-headers
 django-crum
@@ -54,7 +54,7 @@ pyyaml>=6.0.1
 receptorctl
 social-auth-core[openidconnect]==4.4.2  # see UPGRADE BLOCKERs
 social-auth-app-django==5.4.0  # see UPGRADE BLOCKERs
-sqlparse>=0.4.4   # Required by django https://github.com/ansible/awx/security/dependabot/96
+sqlparse>=0.5.2   # Required by django https://github.com/ansible/awx/security/dependabot/96
 redis
 requests
 slack-sdk

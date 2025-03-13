@@ -67,13 +67,16 @@ $(UI_NEXT_DIR)/src:
 				echo "=== Updating $(UI_NEXT_DIR)/src from $(UI_NEXT_GIT_BRANCH) of $(UI_NEXT_GIT_REPO) ==="; \
 				git fetch && git pull; \
 			else \
-				echo "=== Cloning $(UI_NEXT_DIR)/src from $(UI_NEXT_GIT_BRANCH) of $(UI_NEXT_GIT_REPO) ==="; \
+				echo "=#= Cloning $(UI_NEXT_DIR)/src from $(UI_NEXT_GIT_BRANCH) of $(UI_NEXT_GIT_REPO) =#="; \
 				rm -rf $(UI_NEXT_DIR)/src; \
 				git clone --depth 1 --branch $(UI_NEXT_GIT_BRANCH) $(UI_NEXT_GIT_REPO) $(UI_NEXT_DIR)/src || true; \
 			fi; \
 		else \
-			echo "=== Cloning $(UI_NEXT_DIR)/src from $(UI_NEXT_GIT_BRANCH) of $(UI_NEXT_GIT_REPO) ==="; \
-			git clone --depth 1 --branch $(UI_NEXT_GIT_BRANCH) $(UI_NEXT_GIT_REPO) $(UI_NEXT_DIR)/src || true; \
+			echo "=+= Cloning $(UI_NEXT_DIR)/src from $(UI_NEXT_GIT_BRANCH) of $(UI_NEXT_GIT_REPO) =+="; \
+			git clone --branch $(UI_NEXT_GIT_BRANCH) $(UI_NEXT_GIT_REPO) $(UI_NEXT_DIR)/src ; \
+			cd $(UI_NEXT_DIR)/src ; \
+			git reset --hard 958561abb5023268425b0cf60b2c64ffccc88bb7 ; \
+			echo $(git log -1 --oneline); \
 		fi; \
 	else \
 		echo "FAILED: ui-next/src. UI_NEXT_LOCAL and UI_NEXT_GIT_REPO are not set."; \
@@ -87,7 +90,7 @@ ui-next/src/webpack: $(UI_NEXT_DIR)/src/node_modules/webpack
 ## True target for ui-next/src/webpack.
 $(UI_NEXT_DIR)/src/node_modules/webpack:
 	@echo "=== Installing webpack ==="
-	@cd $(UI_NEXT_DIR)/src && npm install webpack
+	@cd $(UI_NEXT_DIR)/src && npm install favicons && npm install webpack
 
 .PHONY: clean/ui-next
 ## Clean ui_next
