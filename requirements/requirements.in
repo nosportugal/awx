@@ -13,7 +13,7 @@ cryptography>=41.0.7  # CVE-2023-49083
 Cython<3 # this is needed as a build dependency, one day we may have separated build deps
 daphne
 distro
-django==4.2.26  # CVE-2023-43665
+django==4.2.16  # CVE-2023-43665
 django-auth-ldap
 django-cors-headers
 django-crum
