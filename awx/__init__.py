@@ -34,10 +34,10 @@ def version_file():
 
 
 try:
-    import pkg_resources
+    from importlib.metadata import version as _pkg_version, PackageNotFoundError
 
-    __version__ = pkg_resources.get_distribution('awx').version
-except pkg_resources.DistributionNotFound:
+    __version__ = _pkg_version('awx')
+except (ImportError, PackageNotFoundError):
     __version__ = get_version()
 
 __all__ = ['__version__']

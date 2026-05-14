@@ -14,6 +14,7 @@ function JobEvent({
   onJobEventClick,
   event,
   measure,
+  registerChild,
   isCollapsed,
   onToggleCollapsed,
   hasChildren,
@@ -36,37 +37,39 @@ function JobEvent({
     });
   }
   return !event.stdout ? null : (
-    <div style={style} type={event.type}>
-      {lineTextHtml.map(({ lineNumber, html }, index) => {
-        if (lineNumber < 0) {
-          return null;
-        }
-        const canToggle = index === toggleLineIndex && !event.isTracebackOnly;
-        return (
-          <JobEventLine
-            onClick={isClickable ? onJobEventClick : undefined}
-            key={`${event.counter}-${lineNumber}`}
-            isFirst={lineNumber === 0}
-            isClickable={isClickable}
-          >
-            <JobEventLineToggle
-              canToggle={canToggle}
-              isCollapsed={isCollapsed}
-              onToggle={onToggleCollapsed}
-            />
-            <JobEventLineNumber>
-              {!event.isTracebackOnly ? lineNumber : ''}
-              <JobEventEllipsis isCollapsed={isCollapsed && canToggle} />
-            </JobEventLineNumber>
-            <JobEventLineText
-              type="job_event_line_text"
-              dangerouslySetInnerHTML={{
-                __html: html,
-              }}
-            />
-          </JobEventLine>
-        );
-      })}
+    <div style={style}>
+      <div ref={registerChild} type={event.type}>
+        {lineTextHtml.map(({ lineNumber, html }, index) => {
+          if (lineNumber < 0) {
+            return null;
+          }
+          const canToggle = index === toggleLineIndex && !event.isTracebackOnly;
+          return (
+            <JobEventLine
+              onClick={isClickable ? onJobEventClick : undefined}
+              key={`${event.counter}-${lineNumber}`}
+              isFirst={lineNumber === 0}
+              isClickable={isClickable}
+            >
+              <JobEventLineToggle
+                canToggle={canToggle}
+                isCollapsed={isCollapsed}
+                onToggle={onToggleCollapsed}
+              />
+              <JobEventLineNumber>
+                {!event.isTracebackOnly ? lineNumber : ''}
+                <JobEventEllipsis isCollapsed={isCollapsed && canToggle} />
+              </JobEventLineNumber>
+              <JobEventLineText
+                type="job_event_line_text"
+                dangerouslySetInnerHTML={{
+                  __html: html,
+                }}
+              />
+            </JobEventLine>
+          );
+        })}
+      </div>
     </div>
   );
 }

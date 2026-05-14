@@ -1,20 +1,21 @@
 let ws;
 
 export default function connectJobSocket({ type, id }, onMessage) {
-  ws = new WebSocket(
+  const socket = new WebSocket(
     `${window.location.protocol === 'http:' ? 'ws:' : 'wss:'}//${
       window.location.host
     }${window.location.pathname}websocket/`
   );
+  ws = socket;
 
-  ws.onopen = () => {
+  socket.onopen = () => {
     const xrftoken = `; ${document.cookie}`
       .split('; csrftoken=')
       .pop()
       .split(';')
       .shift();
     const eventGroup = `${type}_events`;
-    ws.send(
+    socket.send(
       JSON.stringify({
         xrftoken,
         groups: { jobs: ['summary', 'status_changed'], [eventGroup]: [id] },
@@ -22,11 +23,11 @@ export default function connectJobSocket({ type, id }, onMessage) {
     );
   };
 
-  ws.onmessage = (e) => {
+  socket.onmessage = (e) => {
     onMessage(JSON.parse(e.data));
   };
 
-  ws.onclose = (e) => {
+  socket.onclose = (e) => {
     if (e.code !== 1000) {
       // eslint-disable-next-line no-console
       console.debug('Socket closed. Reconnecting...', e);
@@ -36,10 +37,10 @@ export default function connectJobSocket({ type, id }, onMessage) {
     }
   };
 
-  ws.onerror = (err) => {
+  socket.onerror = (err) => {
     // eslint-disable-next-line no-console
     console.debug('Socket error: ', err, 'Disconnecting...');
-    ws.close();
+    socket.close();
   };
 }
 

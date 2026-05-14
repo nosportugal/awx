@@ -14,7 +14,7 @@ function JobEventSkeletonContent({ contentLength }) {
   );
 }
 
-function JobEventSkeleton({ counter, contentLength, style, measure }) {
+function JobEventSkeleton({ counter, contentLength, style, measure, registerChild }) {
   useEffect(() => {
     measure();
   }, [measure]);
@@ -22,11 +22,13 @@ function JobEventSkeleton({ counter, contentLength, style, measure }) {
   return (
     counter > 1 && (
       <div style={style}>
-        <JobEventLine key={counter}>
-          <JobEventLineToggle />
-          <JobEventLineNumber />
-          <JobEventSkeletonContent contentLength={contentLength} />
-        </JobEventLine>
+        <div ref={registerChild}>
+          <JobEventLine key={counter}>
+            <JobEventLineToggle />
+            <JobEventLineNumber />
+            <JobEventSkeletonContent contentLength={contentLength} />
+          </JobEventLine>
+        </div>
       </div>
     )
   );

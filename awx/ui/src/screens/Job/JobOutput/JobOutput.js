@@ -494,7 +494,7 @@ function JobOutput({ job, eventRelatedSearchableKeys, eventSearchableKeys }) {
         rowIndex={index}
         columnIndex={0}
       >
-        {({ measure }) =>
+        {({ measure, registerChild }) =>
           event ? (
             <JobEvent
               isClickable={isHostEvent(event)}
@@ -505,6 +505,7 @@ function JobOutput({ job, eventRelatedSearchableKeys, eventSearchableKeys }) {
               index={index}
               event={event}
               measure={measure}
+              registerChild={registerChild}
               isCollapsed={node.isCollapsed}
               hasChildren={node.children.length}
               onToggleCollapsed={() => {
@@ -519,6 +520,7 @@ function JobOutput({ job, eventRelatedSearchableKeys, eventSearchableKeys }) {
               counter={index}
               contentLength={80}
               measure={measure}
+              registerChild={registerChild}
             />
           )
         }
